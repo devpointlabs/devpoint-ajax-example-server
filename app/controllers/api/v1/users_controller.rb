@@ -24,10 +24,11 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     respond_to do |format|
-      if user = User.create(user_params)
+      user = User.create(user_params)
+      if user.persisted?
          format.json { render json: {user: user}, status: 201 }
       else
-         format.json { render json: {message: "User was NOT created successfully: #{user.errors}"}, status: 400  }
+         format.json { render json: {message: "User was NOT created successfully: #{user.errors.full_messages.join(' and ')}"}, status: 400  }
       end
     end
   end
@@ -38,7 +39,7 @@ class Api::V1::UsersController < ApplicationController
         if @user.update(user_params)
           format.json { render json: {user: @user.reload} }
         else
-          format.json { render json: {message: "User was NOT updated successfully: #{user.errors}"}, status: 400  }
+          format.json { render json: {message: "User was NOT updated successfully: #{user.errors.full_messages.join(' and ')}"}, status: 400  }
         end
       else
          format.json { render json: {message: "User not found with ID: #{id}"}, status: 404 }
