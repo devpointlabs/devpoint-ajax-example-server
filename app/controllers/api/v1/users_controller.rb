@@ -38,10 +38,10 @@ class Api::V1::UsersController < ApplicationController
         if @user.update(user_params)
           format.json { render json: {user: @user.reload} }
         else
-          format.json { render json: {message: "User was NOT updated successfully: #{user.errors.full_messages.join(' and ')}"}, status: 400  }
+          format.json { render json: {message: "User was NOT updated successfully: #{@user.errors.full_messages.join(' and ')}"}, status: 400  }
         end
       else
-         format.json { render json: {message: "User not found with ID: #{id}"}, status: 404 }
+         format.json { render json: {message: "User not found with ID: #{params[:id]}"}, status: 404 }
       end
     end
   end
