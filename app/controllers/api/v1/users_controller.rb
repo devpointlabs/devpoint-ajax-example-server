@@ -53,7 +53,7 @@ class Api::V1::UsersController < ApplicationController
         @user.destroy
          format.json { render json: {message: "User with name: #{full_name} destroyed successfully."} }
       else
-        format.json { render json: {message: "User not found with ID: #{id}"}, status: 404 }
+        format.json { render json: {message: "User not found with ID: #{params[:id]}"}, status: 404 }
       end
     end
   end
