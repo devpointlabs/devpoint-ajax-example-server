@@ -3,11 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     respond_to do |format|
-      if User.all.any?
-        format.json { render json: {users: User.all} }
-      else
-       format.json { render json: {message: 'No users in the system'}, status: 404 }
-      end
+      format.json { render json: {users: User.all} }
     end
   end
 
