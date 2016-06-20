@@ -3,14 +3,14 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     respond_to do |format|
-      format.json { render json: {users: User.all} }
+      format.json { render json: User.all }
     end
   end
 
   def show
     respond_to do |format|
       if @user
-        format.json { render json: {user: @user} }
+        format.json { render json: @user }
       else
         format.json { render json: {message: "User not found with ID: #{params[:id]}"}, status: 404 }
       end
@@ -21,7 +21,7 @@ class Api::V1::UsersController < ApplicationController
     respond_to do |format|
       user = User.create(user_params)
       if user.persisted?
-         format.json { render json: {user: user}, status: 201 }
+         format.json { render json: user, status: 201 }
       else
          format.json { render json: {message: "User was NOT created successfully: #{user.errors.full_messages.join(' and ')}"}, status: 400  }
       end
@@ -32,7 +32,7 @@ class Api::V1::UsersController < ApplicationController
     respond_to do |format|
       if @user
         if @user.update(user_params)
-          format.json { render json: {user: @user.reload} }
+          format.json { render json: @user.reload }
         else
           format.json { render json: {message: "User was NOT updated successfully: #{@user.errors.full_messages.join(' and ')}"}, status: 400  }
         end
@@ -47,7 +47,7 @@ class Api::V1::UsersController < ApplicationController
       if @user
         full_name = @user.full_name
         @user.destroy
-         format.json { render json: {message: "User with name: #{full_name} destroyed successfully."} }
+        format.json { render json: {message: "User with name: #{full_name} destroyed successfully."} }
       else
         format.json { render json: {message: "User not found with ID: #{params[:id]}"}, status: 404 }
       end

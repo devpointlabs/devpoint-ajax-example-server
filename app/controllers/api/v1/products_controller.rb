@@ -3,14 +3,14 @@ class Api::V1::ProductsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.json { render json: {products: Product.all} }
+      format.json { render json: Product.all }
     end
   end
 
   def show
     respond_to do |format|
       if @product
-        format.json { render json: {product: @product} }
+        format.json { render json: @product }
       else
         format.json { render json: {message: "Product not found with ID: #{params[:id]}"}, status: 404 }
       end
@@ -21,7 +21,7 @@ class Api::V1::ProductsController < ApplicationController
     respond_to do |format|
       product = Product.create(product_params)
       if product.persisted?
-         format.json { render json: {product: product}, status: 201 }
+         format.json { render json: product, status: 201 }
       else
          format.json { render json: {message: "Product was NOT created successfully: #{product.errors.full_messages.join(' and ')}"}, status: 400  }
       end
@@ -32,7 +32,7 @@ class Api::V1::ProductsController < ApplicationController
     respond_to do |format|
       if @product
         if @product.update(product_params)
-          format.json { render json: {product: @product.reload} }
+          format.json { render json: @product.reload }
         else
           format.json { render json: {message: "Product was NOT updated successfully: #{@product.errors.full_messages.join(' and ')}"}, status: 400  }
         end
@@ -47,7 +47,7 @@ class Api::V1::ProductsController < ApplicationController
       if @product
         name = @product.name
         @product.destroy
-         format.json { render json: {message: "Product with name: #{name} destroyed successfully."} }
+        format.json { render json: {message: "Product with name: #{name} destroyed successfully."} }
       else
         format.json { render json: {message: "Product not found with ID: #{params[:id]}"}, status: 404 }
       end
