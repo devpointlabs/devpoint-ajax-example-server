@@ -17,6 +17,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rack-cors', :require => 'rack/cors'
 # For API Responses
 gem 'active_model_serializers'
+# Heroku Gem
+gem 'rails_12factor'
 
 group :production do
   gem 'pg'
