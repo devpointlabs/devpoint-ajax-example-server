@@ -60,6 +60,6 @@ class Api::V1::ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :base_price, :description, :quanity_on_hand, :color, :weight, other_attributes: [])
+      params.require(:product).permit(:name, :base_price, :description, :quantity_on_hand, :color, :weight, other_attributes: [])
     end
 end
